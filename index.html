@@ -1,0 +1,679 @@
+<html>
+
+<head>
+    <title>Brawl Stars Guide</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        /* All screen sizes */
+        #mapContainer {
+            width: 100%;
+            height: 130px;
+        }
+        #modes {
+            width: 150px;
+            height: 130px;
+            border-right: 2px dotted grey;
+            margin-right: 5px;
+            float: left;
+        }
+        .maps {
+            float: left;
+            display: none;
+        }
+
+        #bannedContainer {
+            width: 100%;
+        }
+
+        #draftContainer {
+            width: 100%;
+            min-height: 200px;
+        }
+        #team {
+            width: 49%;
+            min-height: 190px;
+            float: left;
+            border-right: 2px dotted grey;
+            text-align: center;
+        }
+        #enemy {
+            width: 50%;
+            float: right;
+            text-align: center;
+        }
+
+        .invalidInput {
+            animation: shake 0.2s ease-in-out 0s 2;
+        }
+        @keyframes shake {
+            0% {
+                margin-left: 0rem;
+            }
+            25% {
+            margin-left: 0.5rem;
+            }
+            75% {
+            margin-left: -0.5rem;
+            }
+            100% {
+            margin-left: 0rem;
+            }
+        }
+
+        @media screen and (max-width: 400px) { /* portrait */
+            #left {
+                width: 100%;
+                background-color: blue;
+            }
+            #right {
+                width: 100%;
+                background-color: red;
+            }
+            td {
+                width: 80px;
+                height: 80px;
+            }
+        }
+        @media screen and (min-width: 401px) and (max-width: 600px) { /* landscape */
+            #left {
+                width: 100%;
+                background-color: blue;
+            }
+            #right {
+                width: 100%;
+                background-color: red;
+            }
+            td {
+                width: 80px;
+                height: 80px;
+            }
+        }
+        @media screen and (min-width: 601px) { /* desktop */
+            #left {
+                width: 50%;
+                float: left;
+                background-color: blue;
+            }
+            #right {
+                width: 50%;
+                float: right;
+                background-color: red;
+            }
+            .picks {
+                width: 100px;
+                height: 100px;
+                background-color: grey;
+            }
+            /* input {
+                width: 100px;
+            } */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="text-align: center">Brawl Stars Power League Drafting Guide</h1>
+    <hr>
+
+    <!-- <div id="left">
+        <table>
+            <tr>
+                <td class="picks"></td>
+                <td class="picks"></td>
+                <td class="picks"></td>
+            </tr>
+            <tr>
+                <td><input></td>
+                <td><input></td>
+                <td><input></td>
+            </tr>
+        </table>
+    </div>
+    <div id="right">
+        <table>
+            <tr>
+                <td class="picks"></td>
+                <td class="picks"></td>
+                <td class="picks"></td>
+            </tr>
+            <tr>
+                <td><input></td>
+                <td><input></td>
+                <td><input></td>
+            </tr>
+        </table>
+    </div> -->
+
+
+    <h1>Map</h1>
+    <div id="mapContainer">
+        <div id="modes">
+            <input type="radio" name="mode" onclick="showMaps('bountyMaps')"><label>Bounty</label><br>
+            <input type="radio" name="mode" onclick="showMaps('brawlBallMaps')"><label>Brawl Ball</label><br>
+            <input type="radio" name="mode" onclick="showMaps('gemGrabMaps')"><label>Gem Grab</label><br>
+            <input type="radio" name="mode" onclick="showMaps('heistMaps')"><label>Heist</label><br>
+            <input type="radio" name="mode" onclick="showMaps('hotZoneMaps')"><label>Hot Zone</label><br>
+            <input type="radio" name="mode" onclick="showMaps('knockoutMaps')"><label>Knockout</label>
+        </div>
+
+        <div class="maps" id="bountyMaps">
+            <input type="radio" name="map" onclick="setMap(0)"><label>Canal Grande</label><br>
+            <input type="radio" name="map" onclick="setMap(1)"><label>Layer Cake</label><br>
+            <input type="radio" name="map" onclick="setMap(2)"><label>Shooting Star</label><br>
+        </div>
+        <div class="maps" id="brawlBallMaps">
+            <input type="radio" name="map" onclick="setMap(3)"><label>Pinhole Punt</label><br>
+            <input type="radio" name="map" onclick="setMap(4)"><label>Sneaky Fields</label><br>
+            <input type="radio" name="map" onclick="setMap(5)"><label>Super Beach</label><br>
+        </div>
+        <div class="maps" id="gemGrabMaps">
+            <input type="radio" name="map" onclick="setMap(6)"><label>Crystal Arcade</label><br>
+            <input type="radio" name="map" onclick="setMap(7)"><label>Double Swoosh</label><br>
+            <input type="radio" name="map" onclick="setMap(8)"><label>Hard Rock Mine</label><br>
+        </div>
+        <div class="maps" id="heistMaps">
+            <input type="radio" name="map" onclick="setMap(9)"><label>Bridge Too Far</label><br>
+            <input type="radio" name="map" onclick="setMap(10)"><label>Pit Stop</label><br>
+            <input type="radio" name="map" onclick="setMap(11)"><label>Safe Zone</label><br>
+        </div>
+        <div class="maps" id="hotZoneMaps">
+            <input type="radio" name="map" onclick="setMap(12)"><label>Dueling Beetles</label><br>
+            <input type="radio" name="map" onclick="setMap(13)"><label>Open Zone</label><br>
+            <input type="radio" name="map" onclick="setMap(14)"><label>Ring of Fire</label><br>
+        </div>
+        <div class="maps" id="knockoutMaps">
+            <input type="radio" name="map" onclick="setMap(15)"><label>Belle's Rock</label><br>
+            <input type="radio" name="map" onclick="setMap(16)"><label>Goldarm Gulch</label><br>
+            <input type="radio" name="map" onclick="setMap(17)"><label>Out in the Open</label><br>
+    </div>
+
+    <br style="clear: both">
+    <hr>
+
+    <div id="bannedContainer">
+        <h1>Banned</h1>
+        <input id="bannedInput" list="bannedList" placeholder="urmom">
+        <datalist id="bannedList">
+            <option value="1">Shelly</option>
+            <option value="2">Nita</option>
+            <option value="3">Colt</option>
+            <option value="4">Bull</option>
+            <option value="5">Brock</option>
+            <option value="6">El Primo</option>
+            <option value="7">Barley</option>
+            <option value="8">Poco</option>
+            <option value="9">Rosa</option>
+            <option value="10">Jessie</option>
+            <option value="11">Dynamike</option>
+            <option value="12">Tick</option>
+            <option value="13">8-Bit</option>
+            <option value="14">Rico</option>
+            <option value="15">Darryl</option>
+            <option value="16">Penny</option>
+            <option value="17">Carl</option>
+            <option value="18">Jacky</option>
+            <option value="19">Gus</option>
+            <option value="20">Bo</option>
+            <option value="21">Emz</option>
+            <option value="22">Stu</option> 
+            <option value="23">Piper</option>
+            <option value="24">Pam</option>
+            <option value="25">Frank</option>
+            <option value="26">Bibi</option>
+            <option value="27">Bea</option>
+            <option value="28">Nani</option>
+            <option value="29">Edgar</option>
+            <option value="30">Griff</option>
+            <option value="31">Grom</option>
+            <option value="32">Bonnie</option>
+            <option value="33">Mortis</option>
+            <option value="34">Tara</option>
+            <option value="35">Gene</option>
+            <option value="36">Max</option>
+            <option value="37">Mr. P</option>
+            <option value="38">Sprout</option>
+            <option value="39">Byron</option>
+            <option value="40">Squeak</option>
+            <option value="41">Gray</option>
+            <option value="42">Spike</option>
+            <option value="43">Crow</option>
+            <option value="44">Leon</option>
+            <option value="45">Sandy</option>
+            <option value="46">Amber</option>
+            <option value="47">Meg</option>
+            <option value="48">Chester</option>
+            <option value="49">Gale</option>
+            <option value="50">Surge</option>
+            <option value="51">Colette</option>
+            <option value="52">Lou</option>
+            <option value="53">Colonel Ruffs</option>
+            <option value="54">Belle</option>
+            <option value="55">Buzz</option>
+            <option value="56">Ash</option>
+            <option value="57">Lola</option>
+            <option value="58">Fang</option>
+            <option value="59">Eve</option>
+            <option value="60">Janet</option>
+            <option value="61">Otis</option>
+            <option value="62">Sam</option>
+            <option value="63">Buster</option>
+            <option value="64">Mandy</option>
+        </datalist>
+        <button onclick="addBanned()">Add</button>
+        <ol id="banned"  style="text-align: left"></ol>
+    </div>
+
+    <hr>
+
+    <div id="draftContainer">
+        <div id="team">
+            <h1>Team</h1>
+            <input id="teamInput" list="teamList" placeholder="Add brawler...">
+            <datalist id="teamList">
+                <option value="1">Shelly</option>
+                <option value="2">Nita</option>
+                <option value="3">Colt</option>
+                <option value="4">Bull</option>
+                <option value="5">Brock</option>
+                <option value="6">El Primo</option>
+                <option value="7">Barley</option>
+                <option value="8">Poco</option>
+                <option value="9">Rosa</option>
+                <option value="10">Jessie</option>
+                <option value="11">Dynamike</option>
+                <option value="12">Tick</option>
+                <option value="13">8-Bit</option>
+                <option value="14">Rico</option>
+                <option value="15">Darryl</option>
+                <option value="16">Penny</option>
+                <option value="17">Carl</option>
+                <option value="18">Jacky</option>
+                <option value="19">Gus</option>
+                <option value="20">Bo</option>
+                <option value="21">Emz</option>
+                <option value="22">Stu</option> 
+                <option value="23">Piper</option>
+                <option value="24">Pam</option>
+                <option value="25">Frank</option>
+                <option value="26">Bibi</option>
+                <option value="27">Bea</option>
+                <option value="28">Nani</option>
+                <option value="29">Edgar</option>
+                <option value="30">Griff</option>
+                <option value="31">Grom</option>
+                <option value="32">Bonnie</option>
+                <option value="33">Mortis</option>
+                <option value="34">Tara</option>
+                <option value="35">Gene</option>
+                <option value="36">Max</option>
+                <option value="37">Mr. P</option>
+                <option value="38">Sprout</option>
+                <option value="39">Byron</option>
+                <option value="40">Squeak</option>
+                <option value="41">Gray</option>
+                <option value="42">Spike</option>
+                <option value="43">Crow</option>
+                <option value="44">Leon</option>
+                <option value="45">Sandy</option>
+                <option value="46">Amber</option>
+                <option value="47">Meg</option>
+                <option value="48">Chester</option>
+                <option value="49">Gale</option>
+                <option value="50">Surge</option>
+                <option value="51">Colette</option>
+                <option value="52">Lou</option>
+                <option value="53">Colonel Ruffs</option>
+                <option value="54">Belle</option>
+                <option value="55">Buzz</option>
+                <option value="56">Ash</option>
+                <option value="57">Lola</option>
+                <option value="58">Fang</option>
+                <option value="59">Eve</option>
+                <option value="60">Janet</option>
+                <option value="61">Otis</option>
+                <option value="62">Sam</option>
+                <option value="63">Buster</option>
+                <option value="64">Mandy</option>
+            </datalist>
+            <button onclick="addTeam()">Add</button>
+            <ol id="teamPicks" style="text-align: left"></ol>
+        </div>
+        <div id="enemy">
+            <h1>Enemy</h1>
+            <input id="enemyInput" list="enemyList" placeholder="Add brawler...">
+            <datalist id="enemyList">
+                <option value="1">Shelly</option>
+                <option value="2">Nita</option>
+                <option value="3">Colt</option>
+                <option value="4">Bull</option>
+                <option value="5">Brock</option>
+                <option value="6">El Primo</option>
+                <option value="7">Barley</option>
+                <option value="8">Poco</option>
+                <option value="9">Rosa</option>
+                <option value="10">Jessie</option>
+                <option value="11">Dynamike</option>
+                <option value="12">Tick</option>
+                <option value="13">8-Bit</option>
+                <option value="14">Rico</option>
+                <option value="15">Darryl</option>
+                <option value="16">Penny</option>
+                <option value="17">Carl</option>
+                <option value="18">Jacky</option>
+                <option value="19">Gus</option>
+                <option value="20">Bo</option>
+                <option value="21">Emz</option>
+                <option value="22">Stu</option> 
+                <option value="23">Piper</option>
+                <option value="24">Pam</option>
+                <option value="25">Frank</option>
+                <option value="26">Bibi</option>
+                <option value="27">Bea</option>
+                <option value="28">Nani</option>
+                <option value="29">Edgar</option>
+                <option value="30">Griff</option>
+                <option value="31">Grom</option>
+                <option value="32">Bonnie</option>
+                <option value="33">Mortis</option>
+                <option value="34">Tara</option>
+                <option value="35">Gene</option>
+                <option value="36">Max</option>
+                <option value="37">Mr. P</option>
+                <option value="38">Sprout</option>
+                <option value="39">Byron</option>
+                <option value="40">Squeak</option>
+                <option value="41">Gray</option>
+                <option value="42">Spike</option>
+                <option value="43">Crow</option>
+                <option value="44">Leon</option>
+                <option value="45">Sandy</option>
+                <option value="46">Amber</option>
+                <option value="47">Meg</option>
+                <option value="48">Chester</option>
+                <option value="49">Gale</option>
+                <option value="50">Surge</option>
+                <option value="51">Colette</option>
+                <option value="52">Lou</option>
+                <option value="53">Colonel Ruffs</option>
+                <option value="54">Belle</option>
+                <option value="55">Buzz</option>
+                <option value="56">Ash</option>
+                <option value="57">Lola</option>
+                <option value="58">Fang</option>
+                <option value="59">Eve</option>
+                <option value="60">Janet</option>
+                <option value="61">Otis</option>
+                <option value="62">Sam</option>
+                <option value="63">Buster</option>
+                <option value="64">Mandy</option>
+            </datalist>
+            <button onclick="addEnemy()">Add</button>
+            <ol id="enemyPicks"  style="text-align: left"></ol>
+        </div>
+    </div>
+
+    <hr>
+    
+    <h2>Suggested Picks/Bans:</h2>
+    <ol id="suggestedList"><li></li></ol>
+
+    <br>
+
+    <button onclick="resetAll()">Clear all</button>
+
+    <!----------------------------------------------------------------------------------------------->
+
+    <script>
+        //global variables
+        var d = document;
+        var mydata; //json data
+        var mapID = -1; //store map ID
+        var banned = [];
+        var team = []; //contains blue team's brawler IDs
+        var enemy = []; //contains red team's brawler IDs
+        var suggestedBrawlers = []; //contains a score for each brawler
+
+        //retrieve json file content
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) { //4 is ready; 200 is ok
+                mydata = JSON.parse(this.responseText); //the json file that we get will be saved as mydata
+
+                setDefault(); //set defaults only after loading json data
+
+                // DEBUGshowBrawlerID();
+            }
+        };
+        xmlhttp.open("GET","brawlers.json",true); //get and open the json file
+        xmlhttp.send(); //send the file to the server
+
+        function setDefault() { //set default vals for suggestedBrawlers array
+            //default score = 0
+            for (var i = 0; i < mydata.brawlers.length; i++) {
+                suggestedBrawlers.push({"key": i, "score": 0});
+            }
+            
+            //update score: general rank in meta
+            for (var i = 0; i < mydata.brawlers.length; i++) {
+                suggestedBrawlers[mydata.meta[i] - 1].score += helperScale(mydata.brawlers.length - i);
+            }
+        }
+        function helperScale(num) { //map a number from inMin-inMax to outMin-outMax
+            var inMin = 1;
+            var inMax = mydata.brawlers.length;
+            var outMin = 0;
+            var outMax = 1;
+            return (num - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+        }
+
+        function showMaps(mode) {
+            //hide currently displayed map
+            var mapsArr = d.getElementsByClassName("maps");
+            for (var i = 0; i < mapsArr.length; i++) {
+                mapsArr[i].style.display = "none";
+            }
+            
+            //display desired map
+            d.getElementById(mode).style.display = "block";
+        }
+        function setMap(ID) { //int ID
+            mapID = ID;
+            suggestBrawlers();
+        }
+
+        function addBanned() {
+            //parse input into brawler ID
+            var brawlerID = d.getElementById("bannedInput").value - 1;
+            d.getElementById("bannedInput").value = "";
+            
+            if (brawlerID >= 0 && !banned.includes(brawlerID)) { //ensure valid input
+                //append a brawler to banned array
+                banned.push(brawlerID);
+
+                //display appended brawler
+                var elem = d.createElement("li");
+                d.getElementById("banned").appendChild(elem);
+                var txt = d.createTextNode(mydata.brawlers[brawlerID].name);
+                elem.appendChild(txt);
+
+                suggestBrawlers();
+            }
+            else { //inform user of invalid input
+                d.getElementById("bannedInput").classList.add("invalidInput");
+                setTimeout(function() {d.getElementById("bannedInput").classList.remove("invalidInput")}, 200);
+            }
+        }
+        function addTeam() {
+            //parse input into brawler ID
+            var brawlerID = d.getElementById("teamInput").value - 1;
+            d.getElementById("teamInput").value = "";
+            
+            if (brawlerID >= 0 && !team.includes(brawlerID) && !enemy.includes(brawlerID) && !banned.includes(brawlerID)) { //ensure valid input
+                //append a brawler to blue team
+                team.push(brawlerID);
+
+                //display appended brawler
+                var elem = d.createElement("li");
+                d.getElementById("teamPicks").appendChild(elem);
+                var txt = d.createTextNode(mydata.brawlers[brawlerID].name);
+                elem.appendChild(txt);
+
+                suggestBrawlers();
+            }
+            else { //inform user of invalid input
+                d.getElementById("teamInput").classList.add("invalidInput");
+                setTimeout(function() {d.getElementById("teamInput").classList.remove("invalidInput")}, 200);
+            }
+        }
+        function addEnemy() {
+            //parse input into brawler ID
+            var brawlerID = d.getElementById("enemyInput").value - 1;
+            d.getElementById("enemyInput").value = "";
+            
+            if (brawlerID >= 0 && !team.includes(brawlerID) && !enemy.includes(brawlerID) && !banned.includes(brawlerID)) { //ensure valid input
+                //append a brawler to red team
+                enemy.push(brawlerID);
+
+                //display appended brawler
+                var elem = d.createElement("li");
+                d.getElementById("enemyPicks").appendChild(elem);
+                var txt = d.createTextNode(mydata.brawlers[brawlerID].name);
+                elem.appendChild(txt);
+
+                suggestBrawlers();
+            }
+            else { //inform user of invalid input
+                d.getElementById("enemyInput").classList.add("invalidInput");
+                setTimeout(function() {d.getElementById("enemyInput").classList.remove("invalidInput")}, 200);
+            }      
+        }
+
+        function suggestBrawlers() {
+            //reset suggested brawlers to default values
+            document.getElementById("suggestedList").innerHTML = "";
+
+            for (var i = 0; i < mydata.brawlers.length; i++) {
+                suggestedBrawlers[mydata.meta[i] - 1].score = helperScale(mydata.brawlers.length - i);
+            }
+
+            //Note: updates range from 1-5 (least to most important)
+
+            //update score: picks for the current map
+            if (mapID != -1) {
+                var currMap = mydata.maps[mapID].picks;
+                for (var i = 0; i < currMap.length; i++) {
+                    brawlerID = currMap[i] - 1;
+                    suggestedBrawlers[brawlerID].score += 5;
+                }
+            }
+
+            //update score: team synergy
+            for (var i = 0; i < team.length; i++) {
+                var synergyArr = mydata.brawlers[team[i]].synergy;
+                for (var j = 0; j < synergyArr.length; j++) {
+                    suggestedBrawlers[synergyArr[j]].score += 3;
+                }
+            }
+
+            //update score: counters
+            for (var i = 0; i < enemy.length; i++) {
+                var counters = mydata.brawlers[enemy[i]].counters;
+                for (var j = 0; j < counters.length; j++) {
+                    suggestedBrawlers[counters[j]].score += 5;
+                }
+            }
+
+            //update score: bans (& ban chosen brawlers)
+            for (var i = 0; i < banned.length; i++) {
+                suggestedBrawlers[banned[i]].score = -1;
+            }
+            for (var i = 0; i < team.length; i++) {
+                suggestedBrawlers[team[i]].score = -1;
+            }
+            for (var i = 0; i < enemy.length; i++) {
+                suggestedBrawlers[enemy[i]].score = -1;
+            }
+
+            //sort & display ranking
+            var temp = suggestedBrawlers.slice();
+            suggestedBrawlers.sort(function(a, b){return b.score-a.score});
+
+            for (var i = 0; i < 10; i++) { //beware: loop does not check for IndexOutOfBounds
+                if (suggestedBrawlers[i].score <= 0) { // do not display brawlers with no score
+                    break;
+                }
+                var elem = d.createElement("li");
+                d.getElementById("suggestedList").appendChild(elem);
+                var txt = d.createTextNode(mydata.brawlers[suggestedBrawlers[i].key].name + " (" + suggestedBrawlers[i].score.toFixed(2) + ")"); //name + confidence score
+                elem.appendChild(txt);
+            }
+            suggestedBrawlers = temp; //revert to original array
+        }
+
+        function resetAll() {            
+            //reset global variables
+            mapID = -1;
+            team = [];
+            enemy = [];
+            
+            //uncheck all radio buttons
+            var arr = d.getElementsByName("mode");
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].checked = false;
+            }
+            arr = d.getElementsByName("map");
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].checked = false;
+            }
+
+            //clear lists
+            d.getElementById("banned").innerHTML = "";
+            d.getElementById("teamPicks").innerHTML = "";
+            d.getElementById("enemyPicks").innerHTML = "";
+
+            //clear suggested brawlers
+            d.getElementById("suggestedList").innerHTML = "";
+            setDefault(); //reset suggestedBrawlers[] to default vals
+        }
+
+        //DEBUG functions
+        //Note: Anything code-related is zero-indexed. Anything user-related is one-indexed.
+        function DEBUGshowBrawlerID() {
+            console.log("Zero-indexed Brawler List:")
+            for (var i = 0; i < mydata.brawlers.length; i++) {
+                console.log(i + ": " + mydata.brawlers[i].name);
+            }
+        }
+        function DEBUGshowGlobalVars() {
+            console.log("bans: ");
+            for (var i = 0; i < banned.length; i++) {
+                console.log(banned[i]);
+            }
+            console.log("team: ");
+            for (var i = 0; i < team.length; i++) {
+                console.log(team[i]);
+            }
+            console.log("enemy: ");
+            for (var i = 0; i < enemy.length; i++) {
+                console.log(enemy[i]);
+            }
+            console.log("sgBr: ");
+            for (var i = 0; i < suggestedBrawlers.length; i++) {
+                console.log(suggestedBrawlers[i].key + " " + suggestedBrawlers[i].score);
+            }
+        }
+        
+        //TODO
+        //fill out all options in datalist
+        //complete brawlers.json
+        //implement remove brawler (hover or hold to pop up remove option)
+        //write documentation on how to update given new brawler/info
+    </script>
+</body>
+
+</html>
